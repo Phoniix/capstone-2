@@ -80,9 +80,26 @@ public class Topping implements SizeInterface{
         allToppings.add(new Topping("EXTRA_REGULAR", "EXTRA GUACAMOLE", 0.00));
         allToppings.add(new Topping("EXTRA_REGULAR", "EXTRA MUSHROOMS", 0.00));
 
+        allToppings.add(new Topping("SAUCE", "MAYO", 0.00));
+        allToppings.add(new Topping("SAUCE", "MUSTARD", 0.00));
+        allToppings.add(new Topping("SAUCE", "KETCHUP", 0.00));
+        allToppings.add(new Topping("SAUCE", "RANCH", 0.00));
+        allToppings.add(new Topping("SAUCE", "THOUSAND ISLAND", 0.00));
+        allToppings.add(new Topping("SAUCE", "VINAIGRETTE", 0.00));
+
+        allToppings.add(new Topping("EXTRA_SAUCE", "EXTRA MAYO", 0.00));
+        allToppings.add(new Topping("EXTRA_SAUCE", "EXTRA MUSTARD", 0.00));
+        allToppings.add(new Topping("EXTRA_SAUCE", "EXTRA KETCHUP", 0.00));
+        allToppings.add(new Topping("EXTRA_SAUCE", "EXTRA RANCH", 0.00));
+        allToppings.add(new Topping("EXTRA_SAUCE", "EXTRA THOUSAND ISLAND", 0.00));
+        allToppings.add(new Topping("EXTRA_SAUCE", "EXTRA VINAIGRETTE", 0.00));
+
+        allToppings.add(new Topping("SIDE", "AU JUS (GRAVY)", 0.00));
+        allToppings.add(new Topping("SIDE", "AU JUS (GRAVY)", 0.00));
+
         return allToppings;
     }
-    public static List<String> allGroupTypes (boolean MEAT, boolean EXTRA_MEAT, boolean CHEESE, boolean EXTRA_CHEESE, boolean REGULAR, boolean EXTRA_REGULAR) {
+    public static List<String> allGroupTypes (boolean MEAT, boolean EXTRA_MEAT, boolean CHEESE, boolean EXTRA_CHEESE, boolean REGULAR, boolean EXTRA_REGULAR, boolean SAUCE, boolean EXTRA_SAUCE) {
         List<String> groups = new ArrayList<>();
         if (MEAT) groups.add("MEAT");
         if (EXTRA_MEAT) groups.add("EXTRA_MEAT");
@@ -90,6 +107,8 @@ public class Topping implements SizeInterface{
         if (EXTRA_CHEESE) groups.add("EXTRA_CHEESE");
         if (REGULAR) groups.add("REGULAR");
         if (EXTRA_REGULAR) groups.add("EXTRA_REGULAR");
+        if (SAUCE) groups.add("SAUCE");
+        if (EXTRA_SAUCE) groups.add("EXTRA_SAUCE");
         return groups;
     }
     public void getToppingMenuNoPrice (List<String> groupTypes) {
