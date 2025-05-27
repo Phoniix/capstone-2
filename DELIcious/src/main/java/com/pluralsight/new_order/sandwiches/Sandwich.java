@@ -3,26 +3,31 @@ package com.pluralsight.new_order.sandwiches;
 import com.pluralsight.design.Design;
 import com.pluralsight.new_order.Size;
 import com.pluralsight.new_order.SizeInterface;
+import com.pluralsight.new_order.sandwiches.sandwich_contents.Bread;
 import com.pluralsight.new_order.sandwiches.sandwich_contents.Topping;
 
 import java.util.List;
+import java.util.Scanner;
+
+import static com.pluralsight.new_order.sandwiches.sandwich_contents.Topping.allToppings;
 
 public class Sandwich implements SizeInterface {
-    private final Size sandwichSize;
+    protected final Size sandwichSize;
     private final double price;
-    private final String breadType;
+    private final Bread bread;
     private final List<Topping> toppings;
 
-    public Sandwich(Size sandwichSize, String breadType, List<Topping> toppings) {
+    public Sandwich(Size sandwichSize, Bread bread, List<Topping> toppings) {
         this.sandwichSize = sandwichSize;
         this.price = calcPriceFromSize(sandwichSize) + totalToppingPrice();
-        this.breadType = breadType;
+        this.bread = bread;
         this.toppings = toppings;
     }
 
+
     // Size -> price conversion
-    public double calcPriceFromSize (Size sandwichSize) {
-        return switch (sandwichSize) {
+    public double calcPriceFromSize (Size size) {
+        return switch (this.sandwichSize) {
             case  SMALL -> 5.50;
             case MEDIUM -> 7.00;
             case LARGE -> 8.50;
@@ -40,8 +45,12 @@ public class Sandwich implements SizeInterface {
     }
 
     // UI Prepared Methods
-    public Sandwich makeSandwich () {
+    public char makeSandwich (Scanner scanner) {
+        Size size = Size.getSize(scanner);
+        Bread bread = Bread.getBread(scanner);
+        for (Topping topping : allToppings()) {
 
+        }
     }
 
     // Getters //
@@ -51,10 +60,28 @@ public class Sandwich implements SizeInterface {
     public double getPrice() {
         return price;
     }
-    public String getBreadType() {
-        return breadType;
+    public Bread getBreadType() {
+        return bread;
     }
     public List<Topping> getToppings() {
         return toppings;
+    }
+
+    public String toppingsAdded () {
+        boolean found = false;
+        StringBuilder toppings = new StringBuilder();
+        for (Topping topping : this.toppings) {
+            toppings.append("|" + topping);
+            found = true;
+        }
+        if (!found) {
+            toppings.append("| NO TOPPING");
+        }
+        return toppings.toString();
+    }
+
+    @Override
+    public String toString() {
+        return sandwichSize + "|" + "Sandwich" + "|" + bread + toppingsAdded();
     }
 }

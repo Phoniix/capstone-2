@@ -1,20 +1,23 @@
 package com.pluralsight.new_order.sandwiches.sandwich_contents;
 
+import com.pluralsight.design.Design;
 import com.pluralsight.new_order.Size;
 import com.pluralsight.new_order.SizeInterface;
+import com.pluralsight.new_order.sandwiches.Sandwich;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-public class Topping implements SizeInterface{
-    double unitCost; // Cost when portion size is SMALL.
-    String name;
+public class Topping implements SizeInterface {
+    private final double unitCost; // Cost when portion size is SMALL.
+    private final String name;
     String groupType;
 
     // Defined Constructor
-    public Topping(String groupType, String type, double unitCost) {
+    public Topping (String groupType, String name, double unitCost) {
         this.unitCost = unitCost;
-        this.name = type;
+        this.name = name;
         this.groupType = groupType;
     }
 
@@ -33,8 +36,9 @@ public class Topping implements SizeInterface{
         } return sum;
     }
 
+
     // Hardcoded Arraylist of ALL toppings
-    public List<Topping> allToppings () {
+    public static List<Topping> allToppings () {
         List<Topping> allToppings = new ArrayList<>();
         allToppings.add(new Topping("MEAT", "STEAK", 1.00));
         allToppings.add(new Topping("MEAT", "HAM", 1.00));
@@ -122,6 +126,11 @@ public class Topping implements SizeInterface{
             }
         }
     }
+    public void printToppings () {
+        for (Topping topping : allToppings()) {
+            System.out.println(topping.toString());
+        }
+    }
 
     // Getters
     public String getGroupType() {
@@ -134,4 +143,8 @@ public class Topping implements SizeInterface{
         return name;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }
