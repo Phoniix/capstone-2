@@ -4,4 +4,5 @@ import java.util.Scanner;
 
 public interface SizeInterface {
     double calcPriceFromSize(Size size);
+
 }

@@ -1,8 +1,6 @@
 package com.pluralsight.program;
 
 import com.pluralsight.design.Design;
-import com.pluralsight.new_order.sandwiches.Sandwich;
-import com.pluralsight.new_order.sandwiches.sandwich_contents.Bread;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -16,19 +14,19 @@ public enum MenuReference  {
 
     // Essential Functions
     MAIN_MENU("ESSENTIAL", '0', "MAIN MENU" , MenuReferenceHandler::mainMenu),
-    EXIT_APP("ESSENTIAL", 'X', "EXIT APP", MenuReferenceHandler::exitApp);
+    EXIT_APP("ESSENTIAL", 'X', "EXIT APP", MenuReferenceHandler::exitApp),
 
     // Screens / Menu Grouping // -------------------------------------------------------------------------------------
 //    NEW_ORDER("APP_SCREEN", '1', "PLACE NEW ORDER", MenuReferenceHandler),
 //
 //    // Order options //
-//    ADD_SANDWICH("ORDER_ACTION", '2', "ADD A SANDWICH", MenuReferenceHandler),
+    ADD_SANDWICH("ORDER_ACTION", '2', "ADD A SANDWICH", MenuReferenceHandler::processOrder);
 //    ADD_DRINK("ORDER_ACTION", '3', "ADD A DRINK", MenuReferenceHandler),
 //    ADD_CHIPS("ORDER_ACTION", '4', "ADD CHIPS", MenuReferenceHandler),
 //    CHECKOUT("ORDER_ACTION", '5', "THAT'S EVERYTHING, CHECKOUT", MenuReferenceHandler),
 //
 //    SHOW_MEAT("SANDWICH_ACTION", '1', "SELECT MEAT", MenuReferenceHandler),
-//    SHOW_TOPPING("SANDWICH_ACTION", '2', "SELECT TOPPINGS", MenuReferenceHandler),
+//    SHOW_EXTRA_TOPPING("SANDWICH_ACTION", '2', "SELECT TOPPINGS", MenuReferenceHandler),
 //    SHOW_CHEESE("SANDWICH_ACTION", '3', "SELECT CHEESE", MenuReferenceHandler),
 //    SHOW_VEGGIES("SANDWICH_ACTION", '4', "SELECT VEGGIES", MenuReferenceHandler),
 //    SHOW_SAUCE("SANDWICH_ACTION", '5', "SELECT SAUCES", MenuReferenceHandler),
@@ -70,7 +68,7 @@ public enum MenuReference  {
     // variables using R in ThrowingSupplier to remote method (ONLY T = t.get() || T apply R (variableType) = t.apply(R) ).
 
     // Custom Functions for menu // -----------------------------------------------------------------------------------
-    public char fromCodeReturnAction (char code, String actionTypeSplitByPipe) throws IOException, InterruptedException, ParseException {
+    public static char fromCodeReturnAction(char code, String actionTypeSplitByPipe) throws IOException, InterruptedException, ParseException {
         for (MenuReference menuList : MenuReference.values()) {
             if (!actionTypeSplitByPipe.equalsIgnoreCase("ALL")) { // Only use ALL for MASTER MENU
                 if (menuList.getMenuCode() == code && menuList.getACTION_TYPE().toUpperCase().contains(actionTypeSplitByPipe.toUpperCase())) {

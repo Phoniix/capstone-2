@@ -4,9 +4,7 @@ import com.pluralsight.design.Design;
 import com.pluralsight.new_order.Size;
 import com.pluralsight.new_order.SizeInterface;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Drinks implements SizeInterface {
     private Size drinkSize;
@@ -31,7 +29,13 @@ public class Drinks implements SizeInterface {
         };
     }
 
-    public List<Drinks> allDrinks () {
+    @Override
+    public String toString() {
+        return flavor;
+    }
+
+    // Methods worked for UI Use
+    public static List<Drinks> allDrinks () {
         List<Drinks> allDrinks = new ArrayList<>();
         allDrinks.add(new Drinks(Size.LARGE, "Coca-Cola"));
         allDrinks.add(new Drinks(Size.MEDIUM, "Sweet Tea"));
@@ -45,4 +49,25 @@ public class Drinks implements SizeInterface {
         allDrinks.add(new Drinks(Size.LARGE, "Vanilla Cream Soda"));
         return allDrinks;
     }
+    public static LinkedHashMap<Integer, Drinks> printDrinks () {
+        LinkedHashMap<Integer, Drinks> drinkMap = new LinkedHashMap<>();
+        int counter = 0;
+        for (Drinks drink : allDrinks()) {
+            counter++;
+            System.out.println(counter + ") " + drink.toString());
+            drinkMap.put(counter, drink);
+        }return drinkMap;
+    }
+    public static Drinks selectedDrink (LinkedHashMap<Integer, Drinks> availableDrinks, int choice) {
+        return availableDrinks.get(choice);
+    }
+    public static Drinks makeDrink (Scanner scanner)  {
+        Design.titleNewLineTop();
+        Design.systemMessage("What drink would you like?", false);
+        LinkedHashMap<Integer, Drinks> availableDrinks = printDrinks();
+        Design.titleLineBottom();
+        int choice = Design.getIntWithMaxMin(scanner, false, "", true, 1, availableDrinks.size());
+        return selectedDrink(availableDrinks, choice);
+    }
+
 }

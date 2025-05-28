@@ -3,11 +3,8 @@ package com.pluralsight.new_order.sandwiches.sandwich_contents;
 import com.pluralsight.design.Design;
 import com.pluralsight.new_order.Size;
 import com.pluralsight.new_order.SizeInterface;
-import com.pluralsight.new_order.sandwiches.Sandwich;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Topping implements SizeInterface {
     private final double unitCost; // Cost when portion size is SMALL.
@@ -103,33 +100,74 @@ public class Topping implements SizeInterface {
 
         return allToppings;
     }
-    public static List<String> allGroupTypes (boolean MEAT, boolean EXTRA_MEAT, boolean CHEESE, boolean EXTRA_CHEESE, boolean REGULAR, boolean EXTRA_REGULAR, boolean SAUCE, boolean EXTRA_SAUCE) {
+
+    // Methods worked for UI purposes
+    public static LinkedHashMap<Integer, Topping> toppingMap (List<Topping> allToppings) {
+        LinkedHashMap<Integer, Topping> toppingMap = new LinkedHashMap<>();
+        for (int i = 0; i < allToppings.size(); i++) {
+            toppingMap.put( i, allToppings.get(i));
+        }
+        return toppingMap;
+    }
+    public static List<String> allGroupTypes (boolean isExtra) {
         List<String> groups = new ArrayList<>();
-        if (MEAT) groups.add("MEAT");
-        if (EXTRA_MEAT) groups.add("EXTRA_MEAT");
-        if (CHEESE) groups.add("CHEESE");
-        if (EXTRA_CHEESE) groups.add("EXTRA_CHEESE");
-        if (REGULAR) groups.add("REGULAR");
-        if (EXTRA_REGULAR) groups.add("EXTRA_REGULAR");
-        if (SAUCE) groups.add("SAUCE");
-        if (EXTRA_SAUCE) groups.add("EXTRA_SAUCE");
+        if (!isExtra) groups.add("MEAT");
+        if (isExtra) groups.add("EXTRA_MEAT");
+        if (!isExtra) groups.add("CHEESE");
+        if (isExtra) groups.add("EXTRA_CHEESE");
+        if (!isExtra) groups.add("REGULAR");
+        if (isExtra) groups.add("EXTRA_REGULAR");
+        if (!isExtra) groups.add("SAUCE");
+        if (isExtra) groups.add("EXTRA_SAUCE");
         return groups;
     }
-    public void getToppingMenuNoPrice (List<String> groupTypes) {
+    public static LinkedHashMap<Integer, String> printGroupType(List<String> groupTypes) {
+        LinkedHashMap <Integer, String> selectedTypes = new LinkedHashMap<>();
+        int counter = 0;
+            for (String group : groupTypes) {
+                counter++;
+                System.out.println(counter + ") "  + group);
+                selectedTypes.put(counter, group);
+            }
+        return selectedTypes;
+    }
+    public static LinkedHashMap<Integer, Topping> printToppingFromGroupType (LinkedHashMap<Integer, String> groupTypes, int choice, Size sandwichSize) {
+        LinkedHashMap<Integer, Topping> toppingsByGroup = new LinkedHashMap<>();
         int counter = 0;
         for (Topping topping : allToppings()) {
-            for (String group : groupTypes) {
-                if (topping.getGroupType().equals(group)) {
-                    System.out.println(counter + ")" + topping.getName());
-                    counter ++;
-                }
+            if (groupTypes.get(choice).equals(topping.getGroupType())) {
+                counter++;
+                System.out.println(counter + ") " + topping);
+                toppingsByGroup.put(counter, topping);
             }
         }
+         return toppingsByGroup;
     }
-    public void printToppings () {
-        for (Topping topping : allToppings()) {
-            System.out.println(topping.toString());
+    public static Topping selectedTopping (int choice, LinkedHashMap<Integer, Topping> availableToppings) {
+        return availableToppings.get(choice);
+    }
+    public static List<Topping> getToppings(Scanner scanner, Size sandwichSize, boolean isExtra) {
+        List<Topping> chosenToppings = new ArrayList<>();
+        while (true) {
+            Design.titleNewLineTop();
+            Design.systemMessage("What toppings would you like?\n" +
+                    "Press 0 to finish.", false);
+            LinkedHashMap<Integer, String> viewableTypes = printGroupType(allGroupTypes(isExtra));
+            int choice =  Design.getIntWithMaxMin(scanner, false, "", true, 0, 4);
+            Design.titleLineBottom();
+            if (choice == 0) break;
+
+            Design.titleNewLineTop();
+            Design.systemMessage("What toppings would you like?\n" +
+                    "Press 0 to finish.", false);
+            LinkedHashMap<Integer, Topping> viewableToppings = printToppingFromGroupType(viewableTypes, choice, sandwichSize);
+            choice = Design.getIntWithMaxMin(scanner, false, "", true, 0, viewableToppings.size());
+            Design.titleLineBottom();
+            if (choice == 0) break;
+
+            chosenToppings.add(selectedTopping(choice, viewableToppings));
         }
+        return chosenToppings;
     }
 
     // Getters
@@ -143,6 +181,7 @@ public class Topping implements SizeInterface {
         return name;
     }
 
+    // toString
     @Override
     public String toString() {
         return name;

@@ -9,8 +9,6 @@ import com.pluralsight.new_order.sandwiches.sandwich_contents.Topping;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.pluralsight.new_order.sandwiches.sandwich_contents.Topping.allToppings;
-
 public class Sandwich implements SizeInterface {
     protected final Size sandwichSize;
     private final double price;
@@ -45,12 +43,19 @@ public class Sandwich implements SizeInterface {
     }
 
     // UI Prepared Methods
-    public char makeSandwich (Scanner scanner) {
-        Size size = Size.getSize(scanner);
-        Bread bread = Bread.getBread(scanner);
-        for (Topping topping : allToppings()) {
-
+    public static Sandwich makeSandwich(Scanner scanner) {
+        Sandwich sandwich;
+        while (true) {
+            Size size = Size.getSize(scanner);
+            Bread bread = Bread.getBread(scanner);
+            List<Topping> toppings = Topping.getToppings(scanner, size, false);
+            boolean extra = Design.getYesNo(scanner, true, "Do you want to add extras?");
+            if (extra) toppings.addAll(Topping.getToppings(scanner, size, true));
+            sandwich = new Sandwich(size, bread, toppings);
+            System.out.println("Here is the sandwich: " + sandwich.toString());
+            break;
         }
+        return sandwich;
     }
 
     // Getters //
@@ -63,7 +68,7 @@ public class Sandwich implements SizeInterface {
     public Bread getBreadType() {
         return bread;
     }
-    public List<Topping> getToppings() {
+    public List<Topping> getToppingsList() {
         return toppings;
     }
 

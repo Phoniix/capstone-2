@@ -15,7 +15,7 @@ public enum Size {
     }
 
     public static Size getSize(Scanner scanner) {
-        int choice = Design.getIntWithMaxMin(scanner, true, "What size drink would you like?\n" +
+        int choice = Design.getIntWithMaxMin(scanner, true, "What size would you like?\n" +
                 "1) SMALL\n" +
                 "2) MEDIUM\n" +
                 "3) LARGE", true, 1, 3
