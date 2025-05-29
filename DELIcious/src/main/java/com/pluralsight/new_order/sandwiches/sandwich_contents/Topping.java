@@ -1,6 +1,6 @@
 package com.pluralsight.new_order.sandwiches.sandwich_contents;
 
-import com.pluralsight.design.Design;
+import com.pluralsight.program.design.Design;
 import com.pluralsight.new_order.Size;
 import com.pluralsight.new_order.SizeInterface;
 
@@ -109,7 +109,7 @@ public class Topping implements SizeInterface {
     }
 
     // Methods worked for UI purposes
-    public static List<String> allGroupTypes (boolean isExtra) {
+    private static List<String> allGroupTypes (boolean isExtra) {
         List<String> groups = new ArrayList<>();
         if (!isExtra) groups.add("MEAT");
         if (isExtra) groups.add("EXTRA_MEAT");
@@ -121,7 +121,7 @@ public class Topping implements SizeInterface {
         if (isExtra) groups.add("EXTRA_SAUCE");
         return groups;
     }
-    public static LinkedHashMap<Integer, String> printGroupType(List<String> groupTypes) {
+    private static LinkedHashMap<Integer, String> printGroupType(List<String> groupTypes) {
         LinkedHashMap <Integer, String> selectedTypes = new LinkedHashMap<>();
         int counter = 0;
             for (String group : groupTypes) {
@@ -131,7 +131,7 @@ public class Topping implements SizeInterface {
             }
         return selectedTypes;
     }
-    public static LinkedHashMap<Integer, Topping> printToppingFromGroupType (LinkedHashMap<Integer, String> groupTypes, int choice, Size sandwichSize) {
+    private static LinkedHashMap<Integer, Topping> printToppingFromGroupType (LinkedHashMap<Integer, String> groupTypes, int choice, Size sandwichSize) {
         LinkedHashMap<Integer, Topping> toppingsByGroup = new LinkedHashMap<>();
         int counter = 0;
         for (Topping topping : allToppings()) {
@@ -143,9 +143,11 @@ public class Topping implements SizeInterface {
         }
          return toppingsByGroup;
     }
-    public static Topping selectedTopping (int choice, LinkedHashMap<Integer, Topping> availableToppings) {
+    private static Topping selectedTopping (int choice, LinkedHashMap<Integer, Topping> availableToppings) {
         return availableToppings.get(choice);
     }
+
+    // UI Methods
     public static List<Topping> getToppings(Scanner scanner, Size sandwichSize, boolean isExtra) {
         List<Topping> chosenToppings = new ArrayList<>();
         while (true) {
@@ -180,12 +182,11 @@ public class Topping implements SizeInterface {
     }
 
     // Getters
-    public String getGroupType() {
+    private String getGroupType() {
         return groupType;
     }
 
     // toString
-    @Override
     public String toString() {
         return name;
     }

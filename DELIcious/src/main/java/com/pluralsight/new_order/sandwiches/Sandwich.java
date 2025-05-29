@@ -1,6 +1,6 @@
 package com.pluralsight.new_order.sandwiches;
 
-import com.pluralsight.design.Design;
+import com.pluralsight.program.design.Design;
 import com.pluralsight.new_order.Size;
 import com.pluralsight.new_order.SizeInterface;
 import com.pluralsight.new_order.sandwiches.sandwich_contents.Bread;
@@ -17,6 +17,7 @@ public class Sandwich implements SizeInterface {
     private Bread bread;
     private List<Topping> toppings;
 
+    // Public Defined constructor
     public Sandwich(Size sandwichSize, Bread bread, List<Topping> toppings) {
         this.sandwichSize = sandwichSize;
         this.bread = bread;
@@ -24,7 +25,8 @@ public class Sandwich implements SizeInterface {
         this.price = calcPriceFromSize(sandwichSize) + totalToppingPrice();
     }
 
-    public Sandwich() {
+    // Private empty constructor
+    private Sandwich() {
     }
 
     // Size -> price conversion
@@ -37,7 +39,7 @@ public class Sandwich implements SizeInterface {
     }
 
     // Gets price for all toppings and adds it to total
-    public double totalToppingPrice () {
+    private double totalToppingPrice () {
         double sum = 0;
         for (Topping topping : this.toppings) {
             sum += topping.calcPriceFromSize(this.sandwichSize);
@@ -45,7 +47,7 @@ public class Sandwich implements SizeInterface {
     }
 
     // UI Prepared Methods
-    public static LinkedHashMap<Integer, Sandwich> sigSandwich (Bread bread, Size size) {
+    private static LinkedHashMap<Integer, Sandwich> sigSandwichList (Bread bread, Size size) {
         LinkedHashMap<Integer, Sandwich> signatures = new LinkedHashMap<>();
         signatures.put(1, new Sandwich(size, bread, List.of(
                 new Topping("MEAT", "STEAK", 1.00),
@@ -114,7 +116,9 @@ public class Sandwich implements SizeInterface {
         )));
         return signatures;
     }
-    public static Sandwich makeSigSandwich (Scanner scanner, Size size, Bread bread, LinkedHashMap<Integer, Sandwich> sandwiches) {
+
+    // UI Methods
+    private static Sandwich makeSigSandwich (Scanner scanner, Size size, Bread bread, LinkedHashMap<Integer, Sandwich> sandwiches) {
         Design.titleNewLineTop();
         Design.systemMessage("""
                 SIGNATURE SANDWICHES
@@ -131,20 +135,25 @@ public class Sandwich implements SizeInterface {
         );
         Design.titleLineBottom();
         int choice = Design.getIntWithMaxMin(scanner, false, "", true, 0, 9);
-        return sigSandwich(bread, size).get(choice);
+        return sigSandwichList(bread, size).get(choice);
     }
     public static Sandwich makeSandwich(Scanner scanner) {
         Sandwich sandwich = new Sandwich();
         List<Topping> toppings = new ArrayList<>();
+
         while (true) {
             boolean sigSandwich = Design.getYesNo(scanner, true, "Would you like one of our signature sandwiches?");
             Size size = Size.getSize(scanner);
             Bread bread = Bread.getBread(scanner);
-            if (sigSandwich) {sandwich = makeSigSandwich(scanner, size, bread, sigSandwich(bread, size));}
-            if (!sigSandwich) {toppings = Topping.getToppings(scanner, size, false);}
+
+            if (sigSandwich) sandwich = makeSigSandwich(scanner, size, bread, sigSandwichList(bread, size));
+            else toppings = Topping.getToppings(scanner, size, false);
+
             boolean extra = Design.getYesNo(scanner, true, "Do you want to add extra toppings?");
-            if (extra) {toppings.addAll(Topping.getToppings(scanner, size, true));}
-            if (!sigSandwich) {sandwich = new Sandwich(size, bread, toppings);}
+
+            if (extra) toppings.addAll(Topping.getToppings(scanner, size, true));
+            if (!sigSandwich) sandwich = new Sandwich(size, bread, toppings);
+
             break;
         }
         return sandwich;
@@ -155,7 +164,7 @@ public class Sandwich implements SizeInterface {
         return price;
     }
 
-    public String toppingsAdded () {
+    private String toppingsAdded () {
         boolean found = false;
         StringBuilder toppings = new StringBuilder();
         for (Topping topping : this.toppings) {
@@ -168,7 +177,7 @@ public class Sandwich implements SizeInterface {
         return toppings.toString();
     }
 
-    @Override
+   //toString
     public String toString() {
         return  "SANDWICH|" + sandwichSize + "|" + "SANDWICH" + "|" + bread + toppingsAdded() + "|" + price + "|";
     }

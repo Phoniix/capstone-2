@@ -1,6 +1,6 @@
 package com.pluralsight.new_order.sandwiches.sandwich_contents;
 
-import com.pluralsight.design.Design;
+import com.pluralsight.program.design.Design;
 
 import java.util.Scanner;
 
@@ -10,6 +10,7 @@ public enum Bread {
     RYE,
     WRAP;
 
+    // UI Methods
     public static Bread getBread (Scanner scanner) {
         int choice = Design.getIntWithMaxMin(scanner, true, """
                 Which bread would you like?

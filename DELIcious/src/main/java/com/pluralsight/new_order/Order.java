@@ -1,9 +1,9 @@
 package com.pluralsight.new_order;
 
-import com.pluralsight.design.Design;
-import com.pluralsight.new_order.extras.Chips;
-import com.pluralsight.new_order.extras.Drinks;
-import com.pluralsight.new_order.extras.Sides;
+import com.pluralsight.program.design.Design;
+import com.pluralsight.new_order.chips_drinks_sides.Chips;
+import com.pluralsight.new_order.chips_drinks_sides.Drinks;
+import com.pluralsight.new_order.chips_drinks_sides.Sides;
 import com.pluralsight.new_order.sandwiches.Sandwich;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class Order {
     private List<Drinks> drinks;
     private List<Sides> sides;
 
-    // Defined constructor
+    // Public Defined constructor
     public Order(List<Sandwich> sandwiches, List<Chips> chips, List<Drinks> drinks, List<Sides> sides) {
         this.sandwiches = sandwiches;
         this.chips = chips;
@@ -24,8 +24,8 @@ public class Order {
         this.sides = sides;
     }
 
-    // Undefined constructor
-    public Order() {
+    // Private Undefined constructor
+    private Order() {
     }
 
     // Price calculation
@@ -43,7 +43,7 @@ public class Order {
         return sum;
     }
 
-    // Methods worked for UI use
+    // UI Methods
     public Order makeOrder(Scanner scanner) {
         List<Sandwich> sandwiches = new ArrayList<>();
         List<Chips> chips = new ArrayList<>();
@@ -87,7 +87,7 @@ public class Order {
         return '0';
     }
 
-
+    // toString
     public String toString() {
         StringBuilder order = new StringBuilder();
         order.append("════════════════════════════════════════════════════════════════════════");

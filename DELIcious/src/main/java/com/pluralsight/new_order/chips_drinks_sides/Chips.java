@@ -1,6 +1,6 @@
-package com.pluralsight.new_order.extras;
+package com.pluralsight.new_order.chips_drinks_sides;
 
-import com.pluralsight.design.Design;
+import com.pluralsight.program.design.Design;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -25,7 +25,7 @@ public class Chips {
     }
 
     // Methods worked for UI use
-    static List<Chips> allChips() {
+    private static List<Chips> allChips() {
         List<Chips> allChips = new ArrayList<>();
         allChips.add(new Chips("Lay's Classic"));
         allChips.add(new Chips("Doritos Nacho Cheese"));
@@ -39,7 +39,7 @@ public class Chips {
         allChips.add(new Chips("Frito's Chili Cheese"));
         return allChips;
     }
-    public static LinkedHashMap<Integer, Chips> printChips () {
+    private static LinkedHashMap<Integer, Chips> printChips () {
         LinkedHashMap<Integer, Chips> availableChips = new LinkedHashMap<>();
         int counter = 0;
         for (Chips chips: allChips()) {
@@ -48,9 +48,11 @@ public class Chips {
             availableChips.put(counter, chips);
         }return availableChips;
     }
-    public static Chips selectedChips (int choice, LinkedHashMap<Integer, Chips> availableChips) {
+    private static Chips selectedChips (int choice, LinkedHashMap<Integer, Chips> availableChips) {
         return availableChips.get(choice);
     }
+
+    // UI Methods
     public static Chips makeChips(Scanner scanner) {
         Design.titleNewLineTop();
         Design.systemMessage("What drink would you like?", false);

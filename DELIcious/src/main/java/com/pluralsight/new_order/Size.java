@@ -1,6 +1,6 @@
 package com.pluralsight.new_order;
 
-import com.pluralsight.design.Design;
+import com.pluralsight.program.design.Design;
 
 import java.util.Scanner;
 

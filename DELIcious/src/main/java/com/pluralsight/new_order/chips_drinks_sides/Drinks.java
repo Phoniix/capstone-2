@@ -1,6 +1,6 @@
-package com.pluralsight.new_order.extras;
+package com.pluralsight.new_order.chips_drinks_sides;
 
-import com.pluralsight.design.Design;
+import com.pluralsight.program.design.Design;
 import com.pluralsight.new_order.Size;
 import com.pluralsight.new_order.SizeInterface;
 
@@ -29,7 +29,7 @@ public class Drinks implements SizeInterface {
     }
 
     // Getters
-    public String getFlavor() {
+    private String getFlavor() {
         return flavor;
     }
     public double getPrice() {
@@ -42,7 +42,7 @@ public class Drinks implements SizeInterface {
     }
 
     // Methods worked for UI Use
-    public static List<Drinks> allDrinks () {
+    private static List<Drinks> allDrinks () {
         List<Drinks> allDrinks = new ArrayList<>();
         allDrinks.add(new Drinks(Size.LARGE, "Dr. Pepper"));
         allDrinks.add(new Drinks(Size.LARGE, "Coca-Cola"));
@@ -57,7 +57,7 @@ public class Drinks implements SizeInterface {
 
         return allDrinks;
     }
-    public static LinkedHashMap<Integer, Drinks> printDrinks () {
+    private static LinkedHashMap<Integer, Drinks> printDrinks () {
         LinkedHashMap<Integer, Drinks> drinkMap = new LinkedHashMap<>();
         int counter = 0;
         for (Drinks drink : allDrinks()) {
@@ -66,9 +66,11 @@ public class Drinks implements SizeInterface {
             drinkMap.put(counter, drink);
         }return drinkMap;
     }
-    public static Drinks selectedDrink (LinkedHashMap<Integer, Drinks> availableDrinks, int choice) {
+    private static Drinks selectedDrink (LinkedHashMap<Integer, Drinks> availableDrinks, int choice) {
         return availableDrinks.get(choice);
     }
+
+    // UI Methods
     public static Drinks makeDrink (Scanner scanner)  {
         Size size = Size.getSize(scanner);
         Design.titleNewLineTop();
