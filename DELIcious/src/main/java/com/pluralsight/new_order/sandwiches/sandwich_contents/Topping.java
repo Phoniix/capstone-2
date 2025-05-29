@@ -22,17 +22,10 @@ public class Topping implements SizeInterface {
     public double calcPriceFromSize(Size sandwichSize) {
         return switch (sandwichSize) {
             case SMALL -> 1 * this.unitCost;
-            case MEDIUM -> 2 * this.unitCost * 2;
-            case LARGE -> 3 * this.unitCost * 3;
+            case MEDIUM -> 2 * this.unitCost;
+            case LARGE -> 3 * this.unitCost;
         };
     }
-    public double totalToppingPrice (List<Topping> toppings, Size sandwichSize) {
-        double sum = 0;
-        for (Topping topping : toppings) {
-            sum += topping.calcPriceFromSize(sandwichSize);
-        } return sum;
-    }
-
 
     // Hardcoded Arraylist of ALL toppings
     public static List<Topping> allToppings () {
@@ -40,30 +33,40 @@ public class Topping implements SizeInterface {
         allToppings.add(new Topping("MEAT", "STEAK", 1.00));
         allToppings.add(new Topping("MEAT", "HAM", 1.00));
         allToppings.add(new Topping("MEAT", "SALAMI", 1.00));
+        allToppings.add(new Topping("MEAT", "PEPPERONI", 1.00));
         allToppings.add(new Topping("MEAT", "ROAST BEEF", 1.00));
         allToppings.add(new Topping("MEAT", "CHICKEN", 1.00));
+        allToppings.add(new Topping("MEAT", "EGG", 1.00));
         allToppings.add(new Topping("MEAT", "BACON", 1.00));
+        allToppings.add(new Topping("MEAT", "PULLED PORK", 1.00));
 
         allToppings.add(new Topping("EXTRA_MEAT", "EXTRA STEAK", 0.50));
         allToppings.add(new Topping("EXTRA_MEAT", "EXTRA HAM", 0.50));
         allToppings.add(new Topping("EXTRA_MEAT", "EXTRA SALAMI", 0.50));
+        allToppings.add(new Topping("EXTRA_MEAT", "EXTRA PEPPERONI", 1.00));
         allToppings.add(new Topping("EXTRA_MEAT", "EXTRA ROAST BEEF", 0.50));
         allToppings.add(new Topping("EXTRA_MEAT", "EXTRA CHICKEN", 0.50));
+        allToppings.add(new Topping("EXTRA_MEAT", "EXTRA EGG", 0.50));
         allToppings.add(new Topping("EXTRA_MEAT", "EXTRA BACON", 0.50));
+        allToppings.add(new Topping("EXTRA_MEAT", "EXTRA PULLED PORK", 1.00));
 
         allToppings.add(new Topping("CHEESE", "AMERICAN", 0.75));
         allToppings.add(new Topping("CHEESE", "PROVOLONE", 0.75));
+        allToppings.add(new Topping("CHEESE", "PEPPER JACK", 0.75));
         allToppings.add(new Topping("CHEESE", "CHEDDAR", 0.75));
         allToppings.add(new Topping("CHEESE", "SWISS", 0.75));
 
         allToppings.add(new Topping("EXTRA_CHEESE", "EXTRA AMERICAN", 0.30));
         allToppings.add(new Topping("EXTRA_CHEESE", "EXTRA PROVOLONE", 0.30));
+        allToppings.add(new Topping("EXTRA_CHEESE", "EXTRA PEPPER JACK", 0.30));
         allToppings.add(new Topping("EXTRA_CHEESE", "EXTRA CHEDDAR", 0.30));
         allToppings.add(new Topping("EXTRA_CHEESE", "EXTRA AMERICAN", 0.30));
 
+        allToppings.add(new Topping("REGULAR", "AVOCADO", 0.00));
         allToppings.add(new Topping("REGULAR", "LETTUCE", 0.00));
         allToppings.add(new Topping("REGULAR", "PEPPERS", 0.00));
         allToppings.add(new Topping("REGULAR", "ONIONS", 0.00));
+        allToppings.add(new Topping("REGULAR", "ONION ", 0.00));
         allToppings.add(new Topping("REGULAR", "TOMATOES", 0.00));
         allToppings.add(new Topping("REGULAR", "JALAPENOS", 0.00));
         allToppings.add(new Topping("REGULAR", "CUCUMBERS", 0.00));
@@ -71,6 +74,7 @@ public class Topping implements SizeInterface {
         allToppings.add(new Topping("REGULAR", "GUACAMOLE", 0.00));
         allToppings.add(new Topping("REGULAR", "MUSHROOMS", 0.00));
 
+        allToppings.add(new Topping("EXTRA_REGULAR", "EXTRA AVOCADO", 0.00));
         allToppings.add(new Topping("EXTRA_REGULAR", "EXTRA LETTUCE", 0.00));
         allToppings.add(new Topping("EXTRA_REGULAR", "EXTRA PEPPERS", 0.00));
         allToppings.add(new Topping("EXTRA_REGULAR", "EXTRA ONIONS", 0.00));
@@ -87,6 +91,9 @@ public class Topping implements SizeInterface {
         allToppings.add(new Topping("SAUCE", "RANCH", 0.00));
         allToppings.add(new Topping("SAUCE", "THOUSAND ISLAND", 0.00));
         allToppings.add(new Topping("SAUCE", "VINAIGRETTE", 0.00));
+        allToppings.add(new Topping("SAUCE", "HUMMUS", 0.00));
+        allToppings.add(new Topping("SAUCE", "BUFFALO", 0.00));
+        allToppings.add(new Topping("SAUCE", "AU JUS (GRAVY)", 0.00));
 
         allToppings.add(new Topping("EXTRA_SAUCE", "EXTRA MAYO", 0.00));
         allToppings.add(new Topping("EXTRA_SAUCE", "EXTRA MUSTARD", 0.00));
@@ -94,21 +101,14 @@ public class Topping implements SizeInterface {
         allToppings.add(new Topping("EXTRA_SAUCE", "EXTRA RANCH", 0.00));
         allToppings.add(new Topping("EXTRA_SAUCE", "EXTRA THOUSAND ISLAND", 0.00));
         allToppings.add(new Topping("EXTRA_SAUCE", "EXTRA VINAIGRETTE", 0.00));
-
-        allToppings.add(new Topping("SIDE", "AU JUS (GRAVY)", 0.00));
-        allToppings.add(new Topping("SIDE", "AU JUS (GRAVY)", 0.00));
+        allToppings.add(new Topping("EXTRA_SAUCE", "EXTRA HUMMUS", 0.00));
+        allToppings.add(new Topping("EXTRA_SAUCE", "EXTRA BUFFALO", 0.00));
+        allToppings.add(new Topping("EXTRA_SAUCE", "EXTRA AU JUS (GRAVY)", 0.00));
 
         return allToppings;
     }
 
     // Methods worked for UI purposes
-    public static LinkedHashMap<Integer, Topping> toppingMap (List<Topping> allToppings) {
-        LinkedHashMap<Integer, Topping> toppingMap = new LinkedHashMap<>();
-        for (int i = 0; i < allToppings.size(); i++) {
-            toppingMap.put( i, allToppings.get(i));
-        }
-        return toppingMap;
-    }
     public static List<String> allGroupTypes (boolean isExtra) {
         List<String> groups = new ArrayList<>();
         if (!isExtra) groups.add("MEAT");
@@ -146,21 +146,28 @@ public class Topping implements SizeInterface {
     public static Topping selectedTopping (int choice, LinkedHashMap<Integer, Topping> availableToppings) {
         return availableToppings.get(choice);
     }
-
     public static List<Topping> getToppings(Scanner scanner, Size sandwichSize, boolean isExtra) {
         List<Topping> chosenToppings = new ArrayList<>();
         while (true) {
             Design.titleNewLineTop();
-            Design.systemMessage("What toppings would you like?\n" +
-                    "Press 0 to finish.", false);
+            Design.systemMessage("""
+                    What toppings would you like?
+                    Press 0 to finish.
+                    
+                    0) Finish Sandwich
+                    """, false);
             LinkedHashMap<Integer, String> viewableTypes = printGroupType(allGroupTypes(isExtra));
             int choice =  Design.getIntWithMaxMin(scanner, false, "", true, 0, viewableTypes.size());
             Design.titleLineBottom();
             if (choice == 0) break;
 
             Design.titleNewLineTop();
-            Design.systemMessage("What toppings would you like?\n" +
-                    "Press 0 to finish.", false
+            Design.systemMessage("""
+                    What toppings would you like?
+                    Press 0 to finish.
+                    
+                    0) Finish Toppings
+                    """, false
             );
             LinkedHashMap<Integer, Topping> viewableToppings = printToppingFromGroupType(viewableTypes, choice, sandwichSize);
             choice = Design.getIntWithMaxMin(scanner, false, "", true, 0, viewableToppings.size());
@@ -175,12 +182,6 @@ public class Topping implements SizeInterface {
     // Getters
     public String getGroupType() {
         return groupType;
-    }
-    public double getUnitCost() {
-        return unitCost;
-    }
-    public String getName() {
-        return name;
     }
 
     // toString

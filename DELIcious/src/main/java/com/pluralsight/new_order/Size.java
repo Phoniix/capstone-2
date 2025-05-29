@@ -9,16 +9,12 @@ public enum Size {
     MEDIUM,
     LARGE;
 
-
-    public double calcPriceFromSize(Size size) {
-        return 0;
-    }
-
     public static Size getSize(Scanner scanner) {
-        int choice = Design.getIntWithMaxMin(scanner, true, "What size would you like?\n" +
-                "1) SMALL\n" +
-                "2) MEDIUM\n" +
-                "3) LARGE", true, 1, 3
+        int choice = Design.getIntWithMaxMin(scanner, true, """
+                What size would you like?
+                1) SMALL
+                2) MEDIUM
+                3) LARGE""", true, 1, 3
         );
         return switch (choice) {
             case 1 -> SMALL;

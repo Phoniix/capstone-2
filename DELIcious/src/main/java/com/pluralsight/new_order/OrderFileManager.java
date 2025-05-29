@@ -1,7 +1,5 @@
 package com.pluralsight.new_order;
 
-import com.pluralsight.design.Design;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +13,7 @@ public class OrderFileManager {
         try (BufferedWriter lilJon = new BufferedWriter(new FileWriter(FILE_PATH))) {
             lilJon.write(newOrder.toString());
         } catch (IOException e) {
+            System.out.println("Code Broke");
             throw new RuntimeException(e);
         }
     }

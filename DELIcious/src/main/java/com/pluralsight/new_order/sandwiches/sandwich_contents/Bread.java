@@ -11,19 +11,18 @@ public enum Bread {
     WRAP;
 
     public static Bread getBread (Scanner scanner) {
-        while (true) {
-            int choice = Design.getIntWithMaxMin(scanner, true, "Which bread would you like?\n" +
-                    "1) WHITE\n" +
-                    "2) WHEAT\n" +
-                    "3) RYE\n" +
-                    "4) WRAP", true, 1, 4);
-            return switch (choice) {
-                case 1 -> WHITE;
-                case 2 -> WHEAT;
-                case 3 -> RYE;
-                case 4 -> WRAP;
-                default -> null;
-            };
-        }
+        int choice = Design.getIntWithMaxMin(scanner, true, """
+                Which bread would you like?
+                1) WHITE
+                2) WHEAT
+                3) RYE
+                4) WRAP""", true, 1, 4);
+        return switch (choice) {
+            case 1 -> WHITE;
+            case 2 -> WHEAT;
+            case 3 -> RYE;
+            case 4 -> WRAP;
+            default -> null;
+        };
     }
 }

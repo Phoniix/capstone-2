@@ -7,9 +7,9 @@ import com.pluralsight.new_order.SizeInterface;
 import java.util.*;
 
 public class Drinks implements SizeInterface {
-    private Size drinkSize;
-    private String flavor;
-    private double price;
+    private final Size drinkSize;
+    private final String flavor;
+    private final double price;
 
     // Constructor
     public Drinks(Size drinkSize, String flavor) {
@@ -25,26 +25,26 @@ public class Drinks implements SizeInterface {
             case  SMALL -> 2.00;
             case MEDIUM -> 2.50;
             case LARGE -> 3.00;
-            default -> 0;
         };
     }
 
+    // Getters
     public String getFlavor() {
         return flavor;
     }
-
     public double getPrice() {
         return price;
     }
 
-    @Override
+    // toString
     public String toString() {
-        return "DRINK|" + flavor + "|";
+        return "DRINK|" + drinkSize + "|" + flavor + "|" + price;
     }
 
     // Methods worked for UI Use
     public static List<Drinks> allDrinks () {
         List<Drinks> allDrinks = new ArrayList<>();
+        allDrinks.add(new Drinks(Size.LARGE, "Dr. Pepper"));
         allDrinks.add(new Drinks(Size.LARGE, "Coca-Cola"));
         allDrinks.add(new Drinks(Size.MEDIUM, "Sweet Tea"));
         allDrinks.add(new Drinks(Size.SMALL, "Lemonade"));
@@ -54,7 +54,7 @@ public class Drinks implements SizeInterface {
         allDrinks.add(new Drinks(Size.LARGE, "Cherry Dr. Pepper"));
         allDrinks.add(new Drinks(Size.MEDIUM, "Strawberry Fanta"));
         allDrinks.add(new Drinks(Size.SMALL, "Green Tea"));
-        allDrinks.add(new Drinks(Size.LARGE, "Vanilla Cream Soda"));
+
         return allDrinks;
     }
     public static LinkedHashMap<Integer, Drinks> printDrinks () {
@@ -62,7 +62,7 @@ public class Drinks implements SizeInterface {
         int counter = 0;
         for (Drinks drink : allDrinks()) {
             counter++;
-            System.out.println(counter + ") " + drink.toString());
+            System.out.println(counter + ") " + drink.getFlavor());
             drinkMap.put(counter, drink);
         }return drinkMap;
     }
@@ -77,6 +77,8 @@ public class Drinks implements SizeInterface {
         Design.titleLineBottom();
         int choice = Design.getIntWithMaxMin(scanner, false, "", true, 1, availableDrinks.size());
         return new Drinks(size, selectedDrink(availableDrinks, choice).getFlavor());
+
+
     }
 
 }

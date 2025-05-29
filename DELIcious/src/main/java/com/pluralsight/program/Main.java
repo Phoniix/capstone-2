@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.util.Scanner;
 
 public class Main {
-    private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException, ParseException, InterruptedException {
         char function = MenuReference.MAIN_MENU.getMenuCode();
@@ -15,6 +14,7 @@ public class Main {
             function = MenuReference.fromCodeReturnAction(function, "ALL");
 
             if (function == MenuReference.EXIT_APP.getMenuCode()) { // 'X'
+                MenuReferenceHandler.SCANNER.close();
                 MenuReference.fromCodeReturnAction('X', "ALL");
                 break;
             }

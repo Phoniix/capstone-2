@@ -6,14 +6,16 @@ import com.pluralsight.new_order.SizeInterface;
 import com.pluralsight.new_order.sandwiches.sandwich_contents.Bread;
 import com.pluralsight.new_order.sandwiches.sandwich_contents.Topping;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Scanner;
 
 public class Sandwich implements SizeInterface {
-    protected final Size sandwichSize;
-    private final double price;
-    private final Bread bread;
-    private final List<Topping> toppings;
+    protected Size sandwichSize;
+    private double price;
+    private Bread bread;
+    private List<Topping> toppings;
 
     public Sandwich(Size sandwichSize, Bread bread, List<Topping> toppings) {
         this.sandwichSize = sandwichSize;
@@ -22,6 +24,8 @@ public class Sandwich implements SizeInterface {
         this.price = calcPriceFromSize(sandwichSize) + totalToppingPrice();
     }
 
+    public Sandwich() {
+    }
 
     // Size -> price conversion
     public double calcPriceFromSize (Size size) {
@@ -29,7 +33,6 @@ public class Sandwich implements SizeInterface {
             case  SMALL -> 5.50;
             case MEDIUM -> 7.00;
             case LARGE -> 8.50;
-            default -> 0;
         };
     }
 
@@ -37,46 +40,126 @@ public class Sandwich implements SizeInterface {
     public double totalToppingPrice () {
         double sum = 0;
         for (Topping topping : this.toppings) {
-            if (this.toppings == null || topping == null) break;
             sum += topping.calcPriceFromSize(this.sandwichSize);
         } return sum;
     }
 
     // UI Prepared Methods
+    public static LinkedHashMap<Integer, Sandwich> sigSandwich (Bread bread, Size size) {
+        LinkedHashMap<Integer, Sandwich> signatures = new LinkedHashMap<>();
+        signatures.put(1, new Sandwich(size, bread, List.of(
+                new Topping("MEAT", "STEAK", 1.00),
+                new Topping("CHEESE", "CHEDDAR", 0.75),
+                new Topping("REGULAR", "ONIONS", 0.00),
+                new Topping("REGULAR", "MUSHROOMS", 0.00),
+                new Topping("SAUCE", "AU JUS (GRAVY)", 0.00)
+        )));
+        signatures.put(2, new Sandwich(size, bread, List.of(
+                new Topping("MEAT", "SALAMI", 1.00),
+                new Topping("MEAT", "HAM", 1.00),
+                new Topping("MEAT", "PEPPERONI", 1.00),
+                new Topping("CHEESE", "PROVOLONE", 0.75),
+                new Topping("REGULAR", "LETTUCE", 0.00),
+                new Topping("REGULAR", "TOMATOES", 0.00),
+                new Topping("SAUCE", "VINAIGRETTE", 0.00)
+        )));
+        signatures.put(3, new Sandwich(size, bread, List.of(
+                new Topping("MEAT", "CHICKEN", 1.00),
+                new Topping("MEAT", "BACON", 1.00),
+                new Topping("CHEESE", "CHEDDAR", 0.75),
+                new Topping("REGULAR", "LETTUCE", 0.00),
+                new Topping("SAUCE", "RANCH", 0.00)
+        )));
+        signatures.put(4, new Sandwich(size, bread, List.of(
+                new Topping("MEAT", "ROAST BEEF", 1.00),
+                new Topping("CHEESE", "PEPPER JACK", 0.75),
+                new Topping("CHEESE", "AMERICAN", 0.75),
+                new Topping("REGULAR", "JALAPENOS", 0.00),
+                new Topping("REGULAR", "JALAPENOS", 0.00),
+                new Topping("SAUCE", "MAYO", 0.00)
+        )));
+        signatures.put(5, new Sandwich(size, bread, List.of(
+                new Topping("REGULAR", "LETTUCE", 0.00),
+                new Topping("REGULAR", "TOMATOES", 0.00),
+                new Topping("REGULAR", "ONIONS", 0.00),
+                new Topping("REGULAR", "CUCUMBERS", 0.00),
+                new Topping("REGULAR", "PICKLES", 0.00),
+                new Topping("SAUCE", "VINAIGRETTE", 0.00)
+        )));
+        signatures.put(6, new Sandwich(size, bread, List.of(
+                new Topping("MEAT", "TURKEY", 1.00), // Not defined, substitute:
+                new Topping("MEAT", "CHICKEN", 1.00),
+                new Topping("MEAT", "BACON", 1.00),
+                new Topping("CHEESE", "SWISS", 0.75),
+                new Topping("REGULAR", "TOMATOES", 0.00),
+                new Topping("SAUCE", "MAYO", 0.00)
+        )));
+        signatures.put(7, new Sandwich(size, bread, List.of(
+                new Topping("MEAT", "HAM", 1.00),
+                new Topping("MEAT", "SALAMI", 1.00),
+                new Topping("MEAT", "ROAST BEEF", 1.00),
+                new Topping("CHEESE", "PROVOLONE", 0.75)
+        )));
+        signatures.put(8, new Sandwich(size, bread, List.of(
+                new Topping("MEAT", "CHICKEN", 1.00),
+                new Topping("CHEESE", "CHEDDAR", 0.75),
+                new Topping("REGULAR", "PICKLES", 0.00),
+                new Topping("SAUCE", "MUSTARD", 0.00)
+        )));
+        signatures.put(9, new Sandwich(size, bread, List.of(
+                new Topping("MEAT", "BACON", 1.00),
+                new Topping("EXTRA_MEAT", "EXTRA BACON", 0.50),
+                new Topping("CHEESE", "AMERICAN", 0.75),
+                new Topping("SAUCE", "KETCHUP", 0.00)
+        )));
+        return signatures;
+    }
+    public static Sandwich makeSigSandwich (Scanner scanner, Size size, Bread bread, LinkedHashMap<Integer, Sandwich> sandwiches) {
+        Design.titleNewLineTop();
+        Design.systemMessage("""
+                SIGNATURE SANDWICHES
+                
+                1) STEAKHOUSE SPECIAL
+                2) ITALIAN
+                3) CHICKEN, BACON, RANCH
+                4) SPICY SOUTHWEST
+                5) VEGGIE SUPREME
+                6) THE CLUB SUB
+                7) MEAT LOVERS
+                8) CHICKEN AND CHEDDAR
+                9) BACON BLAST""", false
+        );
+        Design.titleLineBottom();
+        int choice = Design.getIntWithMaxMin(scanner, false, "", true, 0, 9);
+        return sigSandwich(bread, size).get(choice);
+    }
     public static Sandwich makeSandwich(Scanner scanner) {
-        Sandwich sandwich;
+        Sandwich sandwich = new Sandwich();
+        List<Topping> toppings = new ArrayList<>();
         while (true) {
+            boolean sigSandwich = Design.getYesNo(scanner, true, "Would you like one of our signature sandwiches?");
             Size size = Size.getSize(scanner);
             Bread bread = Bread.getBread(scanner);
-            List<Topping> toppings = Topping.getToppings(scanner, size, false);
-
+            if (sigSandwich) {sandwich = makeSigSandwich(scanner, size, bread, sigSandwich(bread, size));}
+            if (!sigSandwich) {toppings = Topping.getToppings(scanner, size, false);}
             boolean extra = Design.getYesNo(scanner, true, "Do you want to add extra toppings?");
-            if (extra) toppings.addAll(Topping.getToppings(scanner, size, true));
-            sandwich = new Sandwich(size, bread, toppings);
+            if (extra) {toppings.addAll(Topping.getToppings(scanner, size, true));}
+            if (!sigSandwich) {sandwich = new Sandwich(size, bread, toppings);}
             break;
         }
         return sandwich;
     }
 
     // Getters //
-    public Size getSandwichSize() {
-        return sandwichSize;
-    }
     public double getPrice() {
         return price;
-    }
-    public Bread getBreadType() {
-        return bread;
-    }
-    public List<Topping> getToppingsList() {
-        return toppings;
     }
 
     public String toppingsAdded () {
         boolean found = false;
         StringBuilder toppings = new StringBuilder();
         for (Topping topping : this.toppings) {
-            toppings.append("|" + topping);
+            toppings.append("|").append(topping);
             found = true;
         }
         if (!found) {
@@ -87,6 +170,6 @@ public class Sandwich implements SizeInterface {
 
     @Override
     public String toString() {
-        return  "SANDWICH|" + sandwichSize + "|" + "SANDWICH" + "|" + bread + toppingsAdded() + "|";
+        return  "SANDWICH|" + sandwichSize + "|" + "SANDWICH" + "|" + bread + toppingsAdded() + "|" + price + "|";
     }
 }

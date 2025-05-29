@@ -3,24 +3,25 @@ package com.pluralsight.new_order;
 import com.pluralsight.design.Design;
 import com.pluralsight.new_order.extras.Chips;
 import com.pluralsight.new_order.extras.Drinks;
+import com.pluralsight.new_order.extras.Sides;
 import com.pluralsight.new_order.sandwiches.Sandwich;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Order {
-    private double totalPrice;
     private List<Sandwich> sandwiches;
     private List<Chips> chips;
     private List<Drinks> drinks;
+    private List<Sides> sides;
 
     // Defined constructor
-    public Order(List<Sandwich> sandwiches, List<Chips> chips, List<Drinks> drinks) {
+    public Order(List<Sandwich> sandwiches, List<Chips> chips, List<Drinks> drinks, List<Sides> sides) {
         this.sandwiches = sandwiches;
         this.chips = chips;
         this.drinks = drinks;
+        this.sides = sides;
     }
 
     // Undefined constructor
@@ -47,16 +48,21 @@ public class Order {
         List<Sandwich> sandwiches = new ArrayList<>();
         List<Chips> chips = new ArrayList<>();
         List<Drinks> drinks = new ArrayList<>();
-        Order newOrder = new Order(sandwiches, chips, drinks);
+        List<Sides> sides = new ArrayList<>();
+        Order newOrder = new Order(sandwiches, chips, drinks, sides);
         while (true) {
-            Design.systemMessage("What would you like to add?\n" +
-                    "0) Finish Order\n\n" +
-                    "1) Add Sandwich\n" +
-                    "2) Add Drink\n" +
-                    "3) Add Chips\n" +
-                    "4) View Order", true
+            Design.systemMessage("""
+                    What would you like to add?
+                    0) Finish Order
+                    
+                    1) Add Sandwich
+                    2) Add Drink
+                    3) Add Chips
+                    4) Add Side (SAUCE)
+                    5) View Order
+                    """, true
             );
-            int choice = Design.getIntWithMaxMin(scanner, false, "", true, 0, 4);
+            int choice = Design.getIntWithMaxMin(scanner, false, "", true, 0, 5);
             switch (choice) {
                 case 0 -> {
                     return newOrder;
@@ -64,11 +70,9 @@ public class Order {
                 case 1 -> sandwiches.add(Sandwich.makeSandwich(scanner));
                 case 2 -> drinks.add(Drinks.makeDrink(scanner));
                 case 3 -> chips.add(Chips.makeChips(scanner));
-                case 4 -> {
-                    Design.newLineTop();
-                    System.out.println(newOrder);
-                    Design.lineBottom();
-                }
+                case 4 -> sides.add(Sides.makeSide(scanner));
+                case 5 -> System.out.println(newOrder);
+
                 default -> System.out.println("Please choose from listed options.");
             }
         }
@@ -88,18 +92,20 @@ public class Order {
         StringBuilder order = new StringBuilder();
         order.append("════════════════════════════════════════════════════════════════════════");
         for (Sandwich sandwiches : this.sandwiches) {
-            order.append("\n" + sandwiches.toString());
-            //System.out.println(sandwiches);
+            order.append("\n").append(sandwiches.toString());
         }
         for (Drinks drinks : this.drinks) {
-            order.append("\n" + drinks.toString());
-            //System.out.println(drinks);
+            order.append("\n").append(drinks.toString());
         }
         for (Chips chips : this.chips) {
-            order.append("\n" + chips.toString());
-            //System.out.println(chips);
+            order.append("\n").append(chips.toString());
         }
-        order.append("════════════════════════════════════════════════════════════════════════");
+        for (Sides side : this.sides) {
+            order.append("\n").append(side.toString());
+        }
+        order.append("\nTotal Price: ").append(getTotalPrice());
+        order.append("\n════════════════════════════════════════════════════════════════════════");
+
         return order.toString();
     }
 }

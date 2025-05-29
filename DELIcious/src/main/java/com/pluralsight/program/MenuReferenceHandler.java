@@ -1,22 +1,24 @@
 package com.pluralsight.program;
 
 import com.pluralsight.new_order.Order;
-import com.pluralsight.new_order.sandwiches.Sandwich;
 
 import java.util.Scanner;
 
 public class MenuReferenceHandler {
-    public static Scanner scanner = new Scanner(System.in);
+    public static final Scanner SCANNER = new Scanner(System.in);
+
+    // Essential Functions
     public static char mainMenu () {
-        return MenuReference.menuTemplate(scanner, "Welcome to myApp.", "ESSENTIAL|ORDER_ACTION");
+        return MenuReference.menuTemplate(SCANNER, "Welcome to myApp.", "ESSENTIAL|ORDER_ACTION");
     }
     public static char exitApp() {
     System.out.println("Thank you for using myApp\nGoodbye!");
     return 'X';
 }
 
+    // App Function
     public static char processOrder() {
-        return Order.processOrder(scanner);
+        return Order.processOrder(SCANNER);
     }
 
 
