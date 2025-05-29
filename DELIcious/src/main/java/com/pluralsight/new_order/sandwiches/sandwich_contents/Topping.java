@@ -159,7 +159,7 @@ public class Topping implements SizeInterface {
                     0) Finish Sandwich
                     """, false);
             LinkedHashMap<Integer, String> viewableTypes = printGroupType(allGroupTypes(isExtra));
-            int choice =  Design.getIntWithMaxMin(scanner, false, "", true, 0, viewableTypes.size());
+            int choice =  Design.getIntWithMinMax(scanner, false, "", true, 0, viewableTypes.size());
             Design.titleLineBottom();
             if (choice == 0) break;
 
@@ -172,7 +172,7 @@ public class Topping implements SizeInterface {
                     """, false
             );
             LinkedHashMap<Integer, Topping> viewableToppings = printToppingFromGroupType(viewableTypes, choice, sandwichSize);
-            choice = Design.getIntWithMaxMin(scanner, false, "", true, 0, viewableToppings.size());
+            choice = Design.getIntWithMinMax(scanner, false, "", true, 0, viewableToppings.size());
             Design.titleLineBottom();
             if (choice == 0) break;
 

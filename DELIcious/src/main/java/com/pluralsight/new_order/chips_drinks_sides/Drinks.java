@@ -57,7 +57,7 @@ public class Drinks implements SizeInterface {
 
         return allDrinks;
     }
-    private static LinkedHashMap<Integer, Drinks> printDrinks () {
+    private static LinkedHashMap<Integer, Drinks> drinkMapAndPrint() {
         LinkedHashMap<Integer, Drinks> drinkMap = new LinkedHashMap<>();
         int counter = 0;
         for (Drinks drink : allDrinks()) {
@@ -75,9 +75,11 @@ public class Drinks implements SizeInterface {
         Size size = Size.getSize(scanner);
         Design.titleNewLineTop();
         Design.systemMessage("What drink would you like?", false);
-        LinkedHashMap<Integer, Drinks> availableDrinks = printDrinks();
+        LinkedHashMap<Integer, Drinks> availableDrinks = drinkMapAndPrint();
         Design.titleLineBottom();
-        int choice = Design.getIntWithMaxMin(scanner, false, "", true, 1, availableDrinks.size());
+
+        int choice = Design.getIntWithMinMax(scanner, false, "", true, 1, availableDrinks.size());
+
         return new Drinks(size, selectedDrink(availableDrinks, choice).getFlavor());
 
 

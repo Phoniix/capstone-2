@@ -134,7 +134,7 @@ public class Sandwich implements SizeInterface {
                 9) BACON BLAST""", false
         );
         Design.titleLineBottom();
-        int choice = Design.getIntWithMaxMin(scanner, false, "", true, 0, 9);
+        int choice = Design.getIntWithMinMax(scanner, false, "", true, 0, 9);
         return sigSandwichList(bread, size).get(choice);
     }
     public static Sandwich makeSandwich(Scanner scanner) {

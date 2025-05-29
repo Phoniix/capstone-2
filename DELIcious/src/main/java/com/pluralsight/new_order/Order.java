@@ -62,7 +62,7 @@ public class Order {
                     5) View Order
                     """, true
             );
-            int choice = Design.getIntWithMaxMin(scanner, false, "", true, 0, 5);
+            int choice = Design.getIntWithMinMax(scanner, false, "", true, 0, 5);
             switch (choice) {
                 case 0 -> {
                     return newOrder;

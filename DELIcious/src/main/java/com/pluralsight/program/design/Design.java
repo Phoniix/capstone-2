@@ -182,7 +182,7 @@ public class Design {
         }
         return Integer.parseInt(userInput);
     }
-    public static int getIntWithMaxMin (Scanner scanner, boolean prompt, String question, boolean isPositive, int min, int max) {
+    public static int getIntWithMinMax(Scanner scanner, boolean prompt, String question, boolean isPositive, int min, int max) {
         boolean keepGoing = true;
         int i = 0;
         while (keepGoing) {

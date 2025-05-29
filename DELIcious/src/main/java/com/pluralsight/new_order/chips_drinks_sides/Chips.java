@@ -39,7 +39,7 @@ public class Chips {
         allChips.add(new Chips("Frito's Chili Cheese"));
         return allChips;
     }
-    private static LinkedHashMap<Integer, Chips> printChips () {
+    private static LinkedHashMap<Integer, Chips> chipsMapAndPrint () {
         LinkedHashMap<Integer, Chips> availableChips = new LinkedHashMap<>();
         int counter = 0;
         for (Chips chips: allChips()) {
@@ -56,9 +56,11 @@ public class Chips {
     public static Chips makeChips(Scanner scanner) {
         Design.titleNewLineTop();
         Design.systemMessage("What drink would you like?", false);
-        LinkedHashMap<Integer, Chips> availableChips = printChips();
+        LinkedHashMap<Integer, Chips> availableChips = chipsMapAndPrint();
         Design.titleLineBottom();
-        int choice = Design.getIntWithMaxMin(scanner, false, "", true, 1, availableChips.size());
+
+        int choice = Design.getIntWithMinMax(scanner, false, "", true, 1, availableChips.size());
+
         return selectedChips(choice, availableChips);
     }
 

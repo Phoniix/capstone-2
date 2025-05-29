@@ -10,7 +10,7 @@ public enum Size {
     LARGE;
 
     public static Size getSize(Scanner scanner) {
-        int choice = Design.getIntWithMaxMin(scanner, true, """
+        int choice = Design.getIntWithMinMax(scanner, true, """
                 What size would you like?
                 1) SMALL
                 2) MEDIUM

@@ -12,7 +12,7 @@ public enum Bread {
 
     // UI Methods
     public static Bread getBread (Scanner scanner) {
-        int choice = Design.getIntWithMaxMin(scanner, true, """
+        int choice = Design.getIntWithMinMax(scanner, true, """
                 Which bread would you like?
                 1) WHITE
                 2) WHEAT

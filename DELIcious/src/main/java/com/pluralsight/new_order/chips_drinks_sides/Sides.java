@@ -34,7 +34,7 @@ public class Sides {
         allSides.add(new Sides("AU JUS (GRAVY)"));
         return allSides;
     }
-    private static LinkedHashMap<Integer, Sides> printSides () {
+    private static LinkedHashMap<Integer, Sides> sidesMapAndPrint () {
         LinkedHashMap<Integer, Sides> sidesMap = new LinkedHashMap<>();
         int counter = 0;
         for (Sides side : allSides()) {
@@ -52,9 +52,11 @@ public class Sides {
     public static Sides makeSide (Scanner scanner) {
         Design.titleNewLineTop();
         Design.systemMessage("What side would you like to add?", false);
-        LinkedHashMap<Integer, Sides> availableSides = printSides();
+        LinkedHashMap<Integer, Sides> availableSides = sidesMapAndPrint();
         Design.titleLineBottom();
-        int choice = Design.getIntWithMaxMin(scanner, false, "", true, 0, availableSides.size());
+
+        int choice = Design.getIntWithMinMax(scanner, false, "", true, 0, availableSides.size());
+
         return selectedSide(availableSides, choice);
     }
 
