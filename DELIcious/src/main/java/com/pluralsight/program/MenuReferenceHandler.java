@@ -16,7 +16,7 @@ public class MenuReferenceHandler {
 }
 
     public static char processOrder() {
-        return Order.makeOrder(scanner);
+        return Order.processOrder(scanner);
     }
 
 

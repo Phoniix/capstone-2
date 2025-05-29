@@ -16,25 +16,8 @@ public enum MenuReference  {
     MAIN_MENU("ESSENTIAL", '0', "MAIN MENU" , MenuReferenceHandler::mainMenu),
     EXIT_APP("ESSENTIAL", 'X', "EXIT APP", MenuReferenceHandler::exitApp),
 
-    // Screens / Menu Grouping // -------------------------------------------------------------------------------------
-//    NEW_ORDER("APP_SCREEN", '1', "PLACE NEW ORDER", MenuReferenceHandler),
-//
-//    // Order options //
-    ADD_SANDWICH("ORDER_ACTION", '2', "ADD A SANDWICH", MenuReferenceHandler::processOrder);
-//    ADD_DRINK("ORDER_ACTION", '3', "ADD A DRINK", MenuReferenceHandler),
-//    ADD_CHIPS("ORDER_ACTION", '4', "ADD CHIPS", MenuReferenceHandler),
-//    CHECKOUT("ORDER_ACTION", '5', "THAT'S EVERYTHING, CHECKOUT", MenuReferenceHandler),
-//
-//    SHOW_MEAT("SANDWICH_ACTION", '1', "SELECT MEAT", MenuReferenceHandler),
-//    SHOW_EXTRA_TOPPING("SANDWICH_ACTION", '2', "SELECT TOPPINGS", MenuReferenceHandler),
-//    SHOW_CHEESE("SANDWICH_ACTION", '3', "SELECT CHEESE", MenuReferenceHandler),
-//    SHOW_VEGGIES("SANDWICH_ACTION", '4', "SELECT VEGGIES", MenuReferenceHandler),
-//    SHOW_SAUCE("SANDWICH_ACTION", '5', "SELECT SAUCES", MenuReferenceHandler),
-//    SHOW_SIDES("SANDWICH_ACTION", '6', "EXTRAS", MenuReferenceHandler);
-
-
-    // Sandwich options //
-
+    // Order options //
+    MAKE_NEW_ORDER("ORDER_ACTION", '1', "MAKE NEW ORDER", MenuReferenceHandler::processOrder);
 
     // Enum Variables // ----------------------------------------------------------------------------------------------
     private final char MENU_CODE;

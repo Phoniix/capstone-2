@@ -17,9 +17,9 @@ public class Sandwich implements SizeInterface {
 
     public Sandwich(Size sandwichSize, Bread bread, List<Topping> toppings) {
         this.sandwichSize = sandwichSize;
-        this.price = calcPriceFromSize(sandwichSize) + totalToppingPrice();
         this.bread = bread;
         this.toppings = toppings;
+        this.price = calcPriceFromSize(sandwichSize) + totalToppingPrice();
     }
 
 
@@ -49,10 +49,10 @@ public class Sandwich implements SizeInterface {
             Size size = Size.getSize(scanner);
             Bread bread = Bread.getBread(scanner);
             List<Topping> toppings = Topping.getToppings(scanner, size, false);
-            boolean extra = Design.getYesNo(scanner, true, "Do you want to add extras?");
+
+            boolean extra = Design.getYesNo(scanner, true, "Do you want to add extra toppings?");
             if (extra) toppings.addAll(Topping.getToppings(scanner, size, true));
             sandwich = new Sandwich(size, bread, toppings);
-            System.out.println("Here is the sandwich: " + sandwich.toString());
             break;
         }
         return sandwich;
@@ -80,13 +80,13 @@ public class Sandwich implements SizeInterface {
             found = true;
         }
         if (!found) {
-            toppings.append("| NO TOPPING");
+            toppings.append("|NO TOPPING");
         }
         return toppings.toString();
     }
 
     @Override
     public String toString() {
-        return sandwichSize + "|" + "Sandwich" + "|" + bread + toppingsAdded();
+        return  "SANDWICH|" + sandwichSize + "|" + "SANDWICH" + "|" + bread + toppingsAdded() + "|";
     }
 }

@@ -127,9 +127,9 @@ public class Design {
         System.out.println(message + "\n".repeat(newLines));
     }
     public static void systemMessage (String message, boolean visualSpacers) {
-        if (visualSpacers) Design.newLineTop();
+        if (visualSpacers) Design.titleNewLineTop();
         System.out.println(message);
-        if (visualSpacers) Design.lineBottom();
+        if (visualSpacers) Design.titleNewLineTop();
     }
 
     // Back End //
@@ -276,8 +276,17 @@ public class Design {
         }
         return userInput;
     }
-    public static String getDateStamp () {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+    public static String getDateTimeStamp(boolean date, boolean time) {
+        LocalDateTime all = LocalDateTime.now();
+        String output = null;
+        if (date && time) {
+            return all.format(DateTimeFormatter.ofPattern("dd-MM-yyyy__HH:mm:ss"));
+        } if (date) {
+            return all.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        } if (time) {
+            return all.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        }
+        return null;
     }
 //    public static LinkedHashMap<String, Object> confirmInputs (Scanner scanner, LinkedHashMap<String, Object> actionInput, boolean posInt, boolean posDouble, boolean autoCap) {
 //        // Auto Generated list of inputs for user to confirm with availability to fix upon return. Works with "this.variables".
@@ -339,7 +348,6 @@ public class Design {
                 if (!message.isEmpty()) System.out.println(message);
                 System.out.println("Yes or No? (Y) ? (N)");
                 Design.titleLineBottom();
-                Design.enterPrompt();
             }
             input = Design.getNounPrompt(scanner, false, "", false).toUpperCase();
             switch (input.charAt(0)) {

@@ -16,6 +16,14 @@ public class Chips {
         this.price = 1.50;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
     // Methods worked for UI use
     static List<Chips> allChips() {
         List<Chips> allChips = new ArrayList<>();
@@ -36,7 +44,7 @@ public class Chips {
         int counter = 0;
         for (Chips chips: allChips()) {
             counter++;
-            System.out.println(chips);
+            System.out.println(counter + ") " + chips.getName());
             availableChips.put(counter, chips);
         }return availableChips;
     }
@@ -54,6 +62,6 @@ public class Chips {
 
     @Override
     public String toString() {
-        return "Chips: " + name;
+        return "CHIPS|" + name + "|";
     }
 }

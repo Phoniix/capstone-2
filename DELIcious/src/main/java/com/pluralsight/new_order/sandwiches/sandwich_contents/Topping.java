@@ -146,6 +146,7 @@ public class Topping implements SizeInterface {
     public static Topping selectedTopping (int choice, LinkedHashMap<Integer, Topping> availableToppings) {
         return availableToppings.get(choice);
     }
+
     public static List<Topping> getToppings(Scanner scanner, Size sandwichSize, boolean isExtra) {
         List<Topping> chosenToppings = new ArrayList<>();
         while (true) {
@@ -153,13 +154,14 @@ public class Topping implements SizeInterface {
             Design.systemMessage("What toppings would you like?\n" +
                     "Press 0 to finish.", false);
             LinkedHashMap<Integer, String> viewableTypes = printGroupType(allGroupTypes(isExtra));
-            int choice =  Design.getIntWithMaxMin(scanner, false, "", true, 0, 4);
+            int choice =  Design.getIntWithMaxMin(scanner, false, "", true, 0, viewableTypes.size());
             Design.titleLineBottom();
             if (choice == 0) break;
 
             Design.titleNewLineTop();
             Design.systemMessage("What toppings would you like?\n" +
-                    "Press 0 to finish.", false);
+                    "Press 0 to finish.", false
+            );
             LinkedHashMap<Integer, Topping> viewableToppings = printToppingFromGroupType(viewableTypes, choice, sandwichSize);
             choice = Design.getIntWithMaxMin(scanner, false, "", true, 0, viewableToppings.size());
             Design.titleLineBottom();
