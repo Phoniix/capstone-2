@@ -1,4 +1,4 @@
-package com.pluralsight.new_order.chips_drinks_sides;
+package com.pluralsight.new_order.add_ons;
 
 import com.pluralsight.program.design.Design;
 
@@ -62,6 +62,6 @@ public class Sides {
 
     //toString
     public String toString() {
-        return "SIDE|" + name;
+        return "SIDE|" + name + "|$0.0";
     }
 }

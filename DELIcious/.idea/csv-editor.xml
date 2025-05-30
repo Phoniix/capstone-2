@@ -24,6 +24,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\orders\29-05-2025__14-38-05.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="|" />
+            </Attribute>
+          </value>
+        </entry>
       </map>
     </option>
   </component>

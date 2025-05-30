@@ -2,8 +2,6 @@ package com.pluralsight.program;
 
 import com.pluralsight.program.design.Design;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.Scanner;
 
 public enum UserInterface {
@@ -13,7 +11,7 @@ public enum UserInterface {
     //FORBIDDEN CODES: 'X' '0' 'Z'
 
     // Essential Functions
-    MAIN_MENU("ESSENTIAL", '0', "MAIN MENU" , Menu::mainMenu),
+    MAIN_MENU("ESSENTIAL", '0', "MAIN MENU", Menu::mainMenu),
     EXIT_APP("ESSENTIAL", 'X', "EXIT APP", Menu::exitApp),
 
     // Order options //
@@ -45,7 +43,7 @@ public enum UserInterface {
     public String getACTION_TYPE() {
         return ACTION_TYPE;
     } // String menu item type (MAIN_DISPLAY || MAIN_FUNCTION)
-    public char runAction () throws IOException, InterruptedException, ParseException {
+    public char runAction () throws InterruptedException {
         return ACTION.get();
     } // Char return type, can pass other
     // variables using R in ThrowingSupplier to remote method (ONLY T = t.get() || T apply R (variableType) = t.apply(R) ).
@@ -99,7 +97,7 @@ public enum UserInterface {
         }
         return userSelection;
     }
-    public static char fromCodeReturnAction(char code, String actionTypeSplitByPipe) throws IOException, InterruptedException, ParseException {
+    public static char fromCodeReturnAction(char code, String actionTypeSplitByPipe) throws  InterruptedException {
         for (UserInterface menuList : UserInterface.values()) {
             if (!actionTypeSplitByPipe.equalsIgnoreCase("ALL")) { // Only use ALL for MASTER MENU
                 if (menuList.getMenuCode() == code && menuList.getACTION_TYPE().toUpperCase().contains(actionTypeSplitByPipe.toUpperCase())) {

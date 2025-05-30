@@ -131,7 +131,7 @@ public class Topping implements SizeInterface {
             }
         return selectedTypes;
     }
-    private static LinkedHashMap<Integer, Topping> printToppingFromGroupType (LinkedHashMap<Integer, String> groupTypes, int choice, Size sandwichSize) {
+    private static LinkedHashMap<Integer, Topping> printToppingFromGroupType (LinkedHashMap<Integer, String> groupTypes, int choice) {
         LinkedHashMap<Integer, Topping> toppingsByGroup = new LinkedHashMap<>();
         int counter = 0;
         for (Topping topping : allToppings()) {
@@ -148,7 +148,7 @@ public class Topping implements SizeInterface {
     }
 
     // UI Methods
-    public static List<Topping> getToppings(Scanner scanner, Size sandwichSize, boolean isExtra) {
+    public static List<Topping> getToppings(Scanner scanner, boolean isExtra) {
         List<Topping> chosenToppings = new ArrayList<>();
         while (true) {
             Design.titleNewLineTop();
@@ -171,7 +171,7 @@ public class Topping implements SizeInterface {
                     0) Finish Toppings
                     """, false
             );
-            LinkedHashMap<Integer, Topping> viewableToppings = printToppingFromGroupType(viewableTypes, choice, sandwichSize);
+            LinkedHashMap<Integer, Topping> viewableToppings = printToppingFromGroupType(viewableTypes, choice);
             choice = Design.getIntWithMinMax(scanner, false, "", true, 0, viewableToppings.size());
             Design.titleLineBottom();
             if (choice == 0) break;

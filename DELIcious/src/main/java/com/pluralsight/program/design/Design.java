@@ -1,7 +1,5 @@
 package com.pluralsight.program.design;
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -57,20 +55,6 @@ public class Design {
         System.out.println("\n\n");
         scanner.nextLine();
     }
-//    public static String autoLineBreakAt100UpTo300 (String input) {
-//        StringBuilder returnInput = new StringBuilder();
-//        if (input.length() > 100) {
-//            while (input.length() > 100) {
-//                int breaker = input.lastIndexOf(' ', 100);
-//                returnInput.append(input.substring(0, breaker)).append("\n");
-//                input = input.substring(breaker + 1);
-//            }
-//            returnInput.append(input);
-//        } if (input.length() < 100) {
-//            returnInput = new StringBuilder(input);
-//        }
-//        return returnInput.toString();
-//    }
     public static String autoCap (String input) {
         String [] inputParts = input.toLowerCase().split(" ");
         for (int i = 0; i < inputParts.length; i++) {
@@ -131,37 +115,6 @@ public class Design {
         System.out.println(message);
         if (visualSpacers) Design.titleNewLineTop();
     }
-
-    // Back End //
-//    private String activityLogger (Object action, String message) {
-//
-//    }
-    public static Charset utf () {
-        return StandardCharsets.UTF_8;
-    }
-//    public boolean fileBug_1_0(int lineCount) throws IOException {
-//        List<String> snailTrail = new ArrayList<>();
-//        boolean missing = false;
-//        int counter = 0;
-//        try (ReversedLinesFileReader buggy = new ReversedLinesFileReader((new File(this.FILE_PATH)),lineCount, utf());
-//             BufferedWriter fixIt = new BufferedWriter(new FileWriter(this.FILE_PATH, false))) {
-//            String lines = null;
-//            while ((lines = buggy.readLine()) != null && counter <= lineCount) {
-//                snailTrail.add(lines);
-//                counter++;
-//                missing = lines.isEmpty() ? true : false;
-//            } if (missing) {
-//                for (String write : snailTrail) {
-//                    fixIt.write(lines);
-//                    fixIt.newLine();
-//                }
-//                lineCount = Math.max(snailTrail.size() - lineCount, 0); // 0 avoids out of bounds error
-//            }
-//        } catch (IOException e) {
-//            System.out.println("Failure at: " + lineCount + "in" + this.FILE_PATH);
-//        }
-//        return missing;
-//    }
 
     // User Input //
     public static int getIntFromPrompt(Scanner scanner, boolean prompt, String question, boolean isPositive) {
@@ -234,34 +187,28 @@ public class Design {
         }
     }
     public static String getEmailPrompt (Scanner scanner, boolean prompt, String question) {
-        String input = null;
-        boolean keepGoing = true;
-        while (keepGoing) {
-            input = Design.getNounPrompt(scanner, prompt, question, false);
+        while (true) {
+            String input = Design.getNounPrompt(scanner, prompt, question, false);
             if (!input.matches("(?i)[a-z0-9._%+-]+@[a-z0-9._%+-]+.[a-z]{2,}")) {
                 System.out.println("Please enter valid email address");
                 continue;
             }
-            keepGoing = false;
-        } return input;
+            return input;
+        }
     }
     public static String getNounPrompt(Scanner scanner, boolean prompt ,String question, boolean autoCapitalize) {
-        boolean keepGoing = true;
-        String userInput = null;
-
-        while (keepGoing) {
+        while (true) {
             if (prompt) {
                 titleNewLineTop();
                 System.out.println(question);
                 titleLineBottom();
             }
             enterPrompt();
-            userInput = scanner.nextLine().trim().replaceAll("\\s+", " ");
+            String userInput = scanner.nextLine().trim().replaceAll("\\s+", " ");
             if (isEmpty(userInput)) {thisFieldCantBeEmpty(); continue;}
             if (autoCapitalize) {userInput = autoCap(userInput);}
-            keepGoing = false;
+            return userInput;
         }
-        return userInput;
     }
     public static String getGeneralStringNoPrompt (Scanner scanner) {
         boolean keepGoing = true;
@@ -278,68 +225,14 @@ public class Design {
     }
     public static String getDateTimeStamp(boolean date, boolean time) {
         LocalDateTime all = LocalDateTime.now();
-        String output = null;
         if (date && time) {
             return all.format(DateTimeFormatter.ofPattern("dd-MM-yyyy__HH:mm:ss"));
-        } if (date) {
+        } else if (date) {
             return all.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        } if (time) {
+        } else {
             return all.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
         }
-        return null;
     }
-//    public static LinkedHashMap<String, Object> confirmInputs (Scanner scanner, LinkedHashMap<String, Object> actionInput, boolean posInt, boolean posDouble, boolean autoCap) {
-//        // Auto Generated list of inputs for user to confirm with availability to fix upon return. Works with "this.variables".
-//        // Make a Linked Hashmap of {"User visible Action Text. EX: CLIENT NAME", variable connected to this input}.
-//        boolean keepGoing = true;
-//        int reset = 0;
-//        int i = reset;
-//        while (keepGoing) {
-//            i = reset;
-//            Design.titleNewLineTop();
-//            Design.message("Is this info correct? Yes or no? (Y) or (N).", 0);
-//            actionInput.entrySet().stream()
-//                    .forEach(AI -> System.out.println
-//                            (Design.autoCap(AI.getKey().replace("!", "")) + " Entered: " + (AI.getValue())));
-//            Design.titleLineBottom();
-//
-//            if (Design.getYesNo(scanner, false, "")) {
-//                Design.systemMessage("Thank you for confirming", true);
-//                return actionInput;
-//            } else {
-//                Design.titleNewLineTop();
-//                Design.message("Select which part to change. If no number is present," +
-//                        "this value is not directly editable.", 2);
-//                for (Map.Entry<String, Object> AI : actionInput.entrySet()) {
-//                    if (AI.getKey().contains("!")) {
-//                        System.out.println(Design.autoCap(AI.getKey().replace("!", "")) + " Entered: " + (AI.getValue()));
-//                    } if (!AI.getKey().contains("!")) {
-//                        i++;
-//                        System.out.println(Design.autoCap("(" + (i) + ") " + AI.getKey()) + " Entered: " + (AI.getValue()));
-//                    }
-//                } i = reset;
-//                Design.titleLineBottom();
-//                int fixNum = Design.getIntFromPrompt(scanner, false, "", true);
-//
-//                boolean found = false;
-//                String type = null;
-//                for (Map.Entry<String, Object> AI : actionInput.entrySet()) {
-//                    if (AI.getKey().contains("!")) continue;
-//                    i++;
-//                    if (i == fixNum && !AI.getKey().contains("!")) {
-//                        if (AI.getValue() instanceof Integer) {
-//                            actionInput.put(AI.getKey(), Design.getIntFromPrompt(scanner, true, "Please enter " + Design.autoCap(AI.getKey()) + ".", posInt));
-//                        } if (AI.getValue() instanceof Double) {
-//                            actionInput.put(AI.getKey(), Design.getDoubleFromPrompt(scanner, true, "Please enter " + Design.autoCap(AI.getKey()) + ".", posDouble));
-//                        } if (AI.getValue() instanceof String) {
-//                            actionInput.put(AI.getKey(), Design.getNounPrompt(scanner, true, "Please enter " + Design.autoCap(AI.getKey()) + ".", autoCap));
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        return null;
-//    }
     public static boolean getYesNo (Scanner scanner, boolean prompt, String message) {
         String input;
         while (true) {
