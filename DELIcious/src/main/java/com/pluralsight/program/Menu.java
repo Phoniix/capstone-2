@@ -23,14 +23,12 @@ public class Menu {
 
     // Essential Functions
     public static char mainMenu () {
-        return UserInterface.menuTemplate(SCANNER, "Welcome to myApp.", "ESSENTIAL|ORDER_ACTION");
+        return UserInterface.menuTemplate(SCANNER, "Welcome to myApp.", "ORDER_ACTION|ESSENTIAL");
     }
     public static char exitApp() {
     System.out.println("Thank you for using myApp\nGoodbye!");
     return 'X';
 }
-
-    // App Function
 
     ///  --------------------------------------- ORDER-SECTION -------------------------------------------------------------------------------------- ///
 
@@ -136,7 +134,7 @@ public class Menu {
 
     }
 
-    // Sandwich UI Prepared Methods
+    // Sandwich Methods worked for UI use
     private static LinkedHashMap<Integer, Sandwich> sigSandwichList (Bread bread, Size size) {
         LinkedHashMap<Integer, Sandwich> signatures = new LinkedHashMap<>();
         signatures.put(1, new Sandwich(size, bread, List.of(
@@ -206,7 +204,6 @@ public class Menu {
         )));
         return signatures;
     }
-
 
     // Sandwich UI Methods
     private static Sandwich makeSigSandwich (Scanner scanner, Size size, Bread bread) {
